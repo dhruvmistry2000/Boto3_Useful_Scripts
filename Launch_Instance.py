@@ -10,12 +10,12 @@ ec2_console = aws_management_console.client(service_name='ec2', region_name='us-
 for i in range(No_Instance):
         print("Starting Instance " , i+1)
         response = ec2_console.run_instances(
-                ImageId = 'ami-0c7217cdde317cfec',
+                ImageId = 'AMI_ID',
                 InstanceType = 't2.micro',
                 MaxCount=1,
                 MinCount=1,
-                KeyName="learning",
-                SecurityGroupIds=['sg-09c578d1c29a560e3'],
+                KeyName="Key_Name",
+                SecurityGroupIds=['Security_Group_ID'],
                 TagSpecifications=[
                                 {
                                     'ResourceType': 'instance',
