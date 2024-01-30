@@ -8,7 +8,7 @@ aws_management_console = boto3.session.Session(profile_name = "default" , region
 subnet_console = aws_management_console.client(service_name = "ec2", region_name="us-east-1")
 
 subnet = subnet_console.create_subnet(
-        VpcId = 'vpc-0dd6a63eac30c500e',
+        VpcId = 'VPC_ID',
         CidrBlock=cidr_block,
         AvailabilityZone='us-east-1a',
         TagSpecifications=[
