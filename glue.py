@@ -12,5 +12,5 @@ def delete_all_glue_jobs():
             print(f"Deleting job {job_name} in region {region}")
             glue.delete_job(JobName=job_name)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     delete_all_glue_jobs()
