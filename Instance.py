@@ -25,6 +25,3 @@ response = ec2_console.describe_instances(InstanceIds=[instance_id])
 public_ip = response['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
 print(f'Public IP address of instance {instance_id}: {public_ip}')
-
-        
-        
