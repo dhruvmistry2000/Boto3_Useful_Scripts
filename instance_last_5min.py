@@ -6,7 +6,7 @@ def get_recent_instances():
 
     # Get current time and calculate 5 minutes ago
     current_time = datetime.datetime.now()
-    five_minutes_ago = current_time - datetime.timedelta(minutes=5)
+    five_minutes_ago = current_time - datetime.timedelta(seconds=60)
 
     # Get instances launched in the last 5 minutes
     response = ec2.describe_instances(
