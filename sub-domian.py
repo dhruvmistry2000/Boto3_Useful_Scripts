@@ -1,9 +1,6 @@
 import boto3
 
-# Function to fetch customer name from the database (to be implemented)
 def get_customer_name(customer_id):
-    # Implement database connectivity and query logic here
-    # Return the customer's name based on the customer_id
     return "customer_name_from_database"
 
 def create_record_set(hosted_zone_id, sub_domain, instance_id):
@@ -11,12 +8,10 @@ def create_record_set(hosted_zone_id, sub_domain, instance_id):
     ec2 = boto3.resource('ec2')
     instance = ec2.Instance(instance_id)
 
-    # Ensure the instance has a public IP
     if not instance.public_ip_address:
         print("No public IP address available for this instance.")
         return
 
-    # Process tags to find the SubDomain
     tags = {tag['Key']: tag['Value'] for tag in instance.tags or []}
     instance_sub_domain = tags.get('SubDomain')
 
@@ -28,7 +23,7 @@ def create_record_set(hosted_zone_id, sub_domain, instance_id):
                     'ResourceRecordSet': {
                         'Name': f"{instance_sub_domain}.{sub_domain}",
                         'Type': 'A',
-                        'TTL': 300,  # TTL in seconds
+                        'TTL': 300,
                         'ResourceRecords': [{'Value': instance.public_ip_address}]
                     }
                 }
@@ -52,12 +47,10 @@ if __name__ == "__main__":
     instance_id = "YOUR_INSTANCE_ID"
     customer_id = "CUSTOMER_ID"
 
-    # Fetch customer name from the database
     customer_name = get_customer_name(customer_id)
 
-    # Construct the subdomain using the customer's name
     subdomain = f"{customer_name}.{sub_domain}"
 
-    # Call the function to create the record set with the dynamic subdomain
     response = create_record_set(hosted_zone_id, subdomain, instance_id)
     print(response)
+    
