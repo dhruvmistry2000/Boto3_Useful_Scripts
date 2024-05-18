@@ -1,13 +1,16 @@
 import boto3
 
+# Function to get customer name
 def get_customer_name(customer_id):
     return "customer_name_from_database"
 
+# Function to create record set
 def create_record_set(hosted_zone_id, sub_domain, instance_id):
     client = boto3.client('route53')
     ec2 = boto3.resource('ec2')
     instance = ec2.Instance(instance_id)
 
+    # Check if instance has a public IP address
     if not instance.public_ip_address:
         print("No public IP address available for this instance.")
         return
@@ -15,6 +18,7 @@ def create_record_set(hosted_zone_id, sub_domain, instance_id):
     tags = {tag['Key']: tag['Value'] for tag in instance.tags or []}
     instance_sub_domain = tags.get('SubDomain')
 
+    # Check if instance sub domain is available
     if instance_sub_domain:
         change_batch = {
             'Changes': [
@@ -53,4 +57,3 @@ if __name__ == "__main__":
 
     response = create_record_set(hosted_zone_id, subdomain, instance_id)
     print(response)
-    
